@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bêta · Programme LPR | S'investir</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Lato', -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    background: #F5F5F7; color: #0A1B3E;
+    line-height: 1.6; -webkit-font-smoothing: antialiased;
+  }
+  :root {
+    --navy: #0A1B3E; --navy-2: #0F2042; --navy-deep: #061330;
+    --gold: #E5B848; --gold-bright: #F5CC5C; --gold-dark: #B88A1F;
+    --yellow: #FFD43B; --yellow-hover: #F0C220; --yellow-soft: #FFF4C2;
+    --blue: #2D8FE0; --gray: #6E7588;
+    --light-gray: #F5F5F7; --border: #E5E7EB;
+  }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+  .header { background: var(--light-gray); padding: 80px 0 40px; text-align: center; }
+  .beta-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--yellow-soft); color: #6B4F00; padding: 7px 16px; border-radius: 100px; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 22px; border: 1px solid #F0CB3D; }
+  .beta-badge::before { content: ''; width: 8px; height: 8px; background: #C9941A; border-radius: 50%; box-shadow: 0 0 0 4px rgba(255,212,59,0.35); }
+  .header__label { color: var(--blue); font-size: 13px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 16px; }
+  .header__title { font-size: 48px; font-weight: 900; color: var(--navy); line-height: 1.1; margin-bottom: 22px; letter-spacing: -0.01em; }
+  .header__desc { max-width: 720px; margin: 0 auto; color: #4A5168; font-size: 16px; line-height: 1.7; }
+  .header__desc strong { color: var(--navy); font-weight: 700; }
+  .form-section { padding: 40px 0 80px; }
+  .form-card { background: #fff; border-radius: 24px; overflow: hidden; display: grid; grid-template-columns: 400px 1fr; box-shadow: 0 4px 30px rgba(10,27,62,0.08); }
+  .form-visual { background: var(--navy-deep); background-image: radial-gradient(circle at 50% 0%, #1A2D5A 0%, var(--navy) 40%, var(--navy-deep) 90%); color: #fff; padding: 44px 32px 36px; display: flex; flex-direction: column; position: relative; overflow: hidden; }
+  .form-visual::before { content: ''; position: absolute; width: 320px; height: 320px; background: radial-gradient(circle, rgba(229,184,72,0.06) 0%, transparent 65%); top: 30%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; }
+  .fv-title { text-align: center; color: var(--yellow); font-size: 18px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 18px; z-index: 1; }
+  .fv-price { text-align: center; color: #fff; font-size: 44px; font-weight: 900; letter-spacing: -0.02em; line-height: 1; margin-bottom: 30px; z-index: 1; }
+  .fv-price__ttc { font-size: 16px; font-weight: 700; color: rgba(255,255,255,0.7); margin-left: 6px; letter-spacing: 0.05em; vertical-align: 8px; }
+  .fv-features { display: flex; flex-direction: column; gap: 14px; z-index: 1; margin-bottom: 28px; }
+  .fv-feat { display: flex; align-items: flex-start; gap: 14px; }
+  .fv-feat__icon { width: 18px; height: 18px; min-width: 18px; flex-shrink: 0; margin-top: 3px; }
+  .fv-feat__text { color: #fff; font-size: 13.5px; font-weight: 400; line-height: 1.45; }
+  .fv-feat__text strong { font-weight: 700; }
+  .fv-divider { height: 1px; background: rgba(255,255,255,0.08); margin: 4px 0 18px; z-index: 1; }
+  .stripe-box { z-index: 1; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 12px 16px; margin-top: auto; }
+  .stripe-box__top { font-size: 10px; color: rgba(255,255,255,0.5); margin-bottom: 8px; letter-spacing: 0.08em; text-align: center; }
+  .stripe-box__top strong { color: rgba(255,255,255,0.85); font-weight: 700; letter-spacing: 0; }
+  .stripe-box__icons { display: flex; gap: 6px; justify-content: center; align-items: center; flex-wrap: wrap; }
+  .pay-icon { background: #fff; color: var(--navy); padding: 4px 8px; border-radius: 4px; font-size: 9px; font-weight: 900; letter-spacing: 0.05em; }
+  .pay-icon--ssl { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.8); }
+  .form-content { padding: 50px 50px 40px; }
+  .steps { display: flex; gap: 30px; margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+  .step { display: flex; align-items: center; gap: 12px; }
+  .step__num { width: 36px; height: 36px; border-radius: 50%; border: 2px solid; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; }
+  .step--active .step__num { border-color: var(--blue); color: var(--blue); }
+  .step--inactive .step__num { border-color: #D5D8E0; color: #B0B5C5; }
+  .step__title { font-size: 13px; font-weight: 700; color: var(--navy); letter-spacing: 0.05em; text-transform: uppercase; }
+  .step--inactive .step__title { color: #B0B5C5; }
+  .step__sub { font-size: 11px; color: var(--gray); text-transform: uppercase; letter-spacing: 0.05em; }
+  .form-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 24px; }
+  .form-field { position: relative; }
+  .form-field--full { grid-column: 1 / -1; }
+  .form-input { width: 100%; padding: 14px 16px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 14px; color: var(--navy); background: #fff; transition: border-color 0.15s, box-shadow 0.15s; font-family: inherit; }
+  .form-input:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px rgba(45,143,224,0.12); }
+  .form-input::placeholder { color: #B0B5C5; }
+  select.form-input { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M3 5l3 3 3-3' stroke='%236E7588' fill='none' stroke-width='1.5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; cursor: pointer; }
+  .order-summary { background: #FAFBFC; border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 22px; }
+  .order-summary__row { display: flex; justify-content: space-between; align-items: baseline; }
+  .order-summary__label { color: var(--navy); font-weight: 700; font-size: 15px; }
+  .order-summary__value { font-size: 22px; font-weight: 900; color: var(--navy); }
+  .btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 10px; width: 100%; background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 25%, var(--gold-bright) 50%, var(--gold) 75%, var(--gold-dark) 100%); color: var(--navy); border: none; padding: 18px 28px; border-radius: 12px; font-size: 15px; font-weight: 900; cursor: pointer; font-family: inherit; text-decoration: none; box-shadow: 0 4px 16px rgba(229,184,72,0.28), inset 0 1px 0 rgba(255,255,255,0.35); letter-spacing: 0.01em; position: relative; overflow: hidden; transition: transform 0.15s, box-shadow 0.2s; }
+  .btn-primary::before { content: ''; position: absolute; top: 0; left: -120%; width: 60%; height: 100%; background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.55) 50%, transparent 100%); transform: skewX(-20deg); animation: btn-shimmer 3.2s ease-in-out infinite; pointer-events: none; }
+  @keyframes btn-shimmer { 0% { left: 120%; } 60% { left: 120%; } 100% { left: -120%; } }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 22px rgba(229,184,72,0.4), inset 0 1px 0 rgba(255,255,255,0.4); }
+  .btn-primary:active { transform: scale(0.99); }
+  .legal-mini { margin-top: 14px; font-size: 11px; color: var(--gray); text-align: center; line-height: 1.6; }
+  .faq-section { background: var(--navy); color: #fff; padding: 90px 0; }
+  .faq-section__label { color: var(--yellow); font-size: 13px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; text-align: center; margin-bottom: 18px; }
+  .faq-section__title { text-align: center; font-size: 42px; font-weight: 900; color: #fff; margin-bottom: 56px; line-height: 1.2; letter-spacing: -0.01em; }
+  .faq-list { max-width: 820px; margin: 0 auto 50px; }
+  .faq-item { border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .faq-question { width: 100%; text-align: left; background: transparent; border: none; color: #fff; padding: 22px 0; font-size: 16px; font-weight: 700; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 20px; font-family: inherit; transition: opacity 0.15s; }
+  .faq-question:hover { opacity: 0.85; }
+  .faq-question__icon { width: 16px; height: 16px; flex-shrink: 0; transition: transform 0.25s; stroke: rgba(255,255,255,0.6); }
+  .faq-item.is-open .faq-question__icon { transform: rotate(180deg); stroke: var(--yellow); }
+  .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+  .faq-item.is-open .faq-answer { max-height: 800px; }
+  .faq-answer__inner { padding: 0 0 24px 0; color: rgba(255,255,255,0.78); font-size: 15px; line-height: 1.75; max-width: 720px; }
+  .faq-cta { text-align: center; margin-top: 40px; }
+  .faq-cta-wrap { display: inline-block; width: 100%; max-width: 480px; }
+  .footer { background: var(--navy); color: rgba(255,255,255,0.7); padding: 60px 0 32px; border-top: 1px solid rgba(255,255,255,0.08); }
+  .footer__disclaimer { text-align: center; color: rgba(255,255,255,0.5); font-size: 12px; line-height: 1.7; max-width: 920px; margin: 0 auto 24px; }
+  .footer__copyright { text-align: center; font-size: 12px; color: rgba(255,255,255,0.4); padding-top: 22px; border-top: 1px solid rgba(255,255,255,0.08); }
+  .footer__copyright a { color: rgba(255,255,255,0.55); text-decoration: none; }
+  @media (max-width: 900px) {
+    .form-card { grid-template-columns: 1fr; }
+    .header__title { font-size: 32px; }
+    .header { padding: 50px 0 30px; }
+    .faq-section__title { font-size: 28px; }
+    .faq-section { padding: 60px 0; }
+    .form-fields { grid-template-columns: 1fr; }
+    .form-content { padding: 32px 24px; }
+    .form-visual { padding: 36px 24px 28px; }
+    .steps { flex-direction: column; gap: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<section class="header">
+  <div class="container">
+    <div class="beta-badge">Bêta-test · 50 places limitées</div>
+    <div class="header__label">Apprendre avec S'investir</div>
+    <h1 class="header__title">Rejoignez la bêta du<br>Programme LPR</h1>
+    <p class="header__desc">Accédez au <strong>Programme LPR de Mathieu Verstraten</strong> pour maîtriser l'investissement immobilier locatif, bâtir un patrimoine solide et générer des revenus complémentaires grâce à une méthode qui a fait ses preuves.</p>
+  </div>
+</section>
+
+<section class="form-section">
+  <div class="container">
+    <div class="form-card">
+
+      <div class="form-visual">
+
+        <div class="fv-title" style="color:#FFD43B;">Le Programme LPR</div>
+        <div class="fv-price">1 497 €<span class="fv-price__ttc">TTC</span></div>
+
+        <div class="fv-features">
+          <div class="fv-feat">
+            <svg class="fv-feat__icon" viewBox="0 0 18 18" fill="none"><polyline points="3,9.5 7,13 15,5" stroke="#E5B848" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="fv-feat__text"><strong>Module 0</strong> : Bienvenue dans le Programme LPR</div>
+          </div>
+          <div class="fv-feat">
+            <svg class="fv-feat__icon" viewBox="0 0 18 18" fill="none"><polyline points="3,9.5 7,13 15,5" stroke="#E5B848" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="fv-feat__text"><strong>Module 1</strong> : État d'esprit investisseur immobilier</div>
+          </div>
+          <div class="fv-feat">
+            <svg class="fv-feat__icon" viewBox="0 0 18 18" fill="none"><polyline points="3,9.5 7,13 15,5" stroke="#E5B848" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="fv-feat__text"><strong>Module 2</strong> : Règles du jeu immobilier</div>
+          </div>
+          <div class="fv-feat">
+            <svg class="fv-feat__icon" viewBox="0 0 18 18" fill="none"><polyline points="3,9.5 7,13 15,5" stroke="#E5B848" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="fv-feat__text"><strong>Module 3</strong> : Stratégie d'attaque</div>
+          </div>
+          <div class="fv-feat">
+            <svg class="fv-feat__icon" viewBox="0 0 18 18" fill="none"><polyline points="3,9.5 7,13 15,5" stroke="#E5B848" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="fv-feat__text"><strong>Module 4</strong> : Montage juridique et fiscal</div>
+          </div>
+          <div class="fv-feat">
+            <svg class="fv-feat__icon" viewBox="0 0 18 18" fill="none"><polyline points="3,9.5 7,13 15,5" stroke="#E5B848" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="fv-feat__text">Modules suivants publiés progressivement</div>
+          </div>
+          <div class="fv-feat">
+            <svg class="fv-feat__icon" viewBox="0 0 18 18" fill="none"><polyline points="3,9.5 7,13 15,5" stroke="#E5B848" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="fv-feat__text">Quiz de validation par module</div>
+          </div>
+          <div class="fv-feat">
+            <svg class="fv-feat__icon" viewBox="0 0 18 18" fill="none"><polyline points="3,9.5 7,13 15,5" stroke="#E5B848" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="fv-feat__text">Supports téléchargeables par module</div>
+          </div>
+          <div class="fv-feat">
+            <svg class="fv-feat__icon" viewBox="0 0 18 18" fill="none"><polyline points="3,9.5 7,13 15,5" stroke="#E5B848" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="fv-feat__text">1 live mensuel avec Mathieu Verstraten</div>
+          </div>
+          <div class="fv-feat">
+            <svg class="fv-feat__icon" viewBox="0 0 18 18" fill="none"><polyline points="3,9.5 7,13 15,5" stroke="#E5B848" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="fv-feat__text">Mises à jour incluses jusqu'au lancement public</div>
+          </div>
+          <div class="fv-feat">
+            <svg class="fv-feat__icon" viewBox="0 0 18 18" fill="none"><polyline points="3,9.5 7,13 15,5" stroke="#E5B848" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="fv-feat__text">Statut bêta-testeur : co-construction du programme</div>
+          </div>
+        </div>
+
+        <div class="fv-divider"></div>
+
+        <div class="stripe-box">
+          <div class="stripe-box__top">Paiement sécurisé · <strong>Stripe</strong></div>
+          <div class="stripe-box__icons">
+            <span class="pay-icon">VISA</span>
+            <span class="pay-icon">MC</span>
+            <span class="pay-icon">AMEX</span>
+            <span class="pay-icon pay-icon--ssl">SSL</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="form-content">
+        <div class="steps">
+          <div class="step step--active">
+            <div class="step__num">1</div>
+            <div>
+              <div class="step__title">Vos informations</div>
+              <div class="step__sub">Pour recevoir la formation</div>
+            </div>
+          </div>
+          <div class="step step--inactive">
+            <div class="step__num">2</div>
+            <div>
+              <div class="step__title">Finalisation</div>
+              <div class="step__sub">De votre commande</div>
+            </div>
+          </div>
+        </div>
+
+        <form onsubmit="event.preventDefault();">
+          <div class="form-fields">
+            <div class="form-field"><input class="form-input" type="text" placeholder="Prénom *"></div>
+            <div class="form-field"><input class="form-input" type="text" placeholder="Nom *"></div>
+            <div class="form-field"><input class="form-input" type="text" placeholder="Nom de l'entreprise"></div>
+            <div class="form-field"><input class="form-input" type="text" placeholder="N° de TVA"></div>
+            <div class="form-field form-field--full"><input class="form-input" type="email" placeholder="Adresse e-mail *"></div>
+            <div class="form-field form-field--full"><input class="form-input" type="text" placeholder="Numéro de voie et nom de la rue *"></div>
+            <div class="form-field"><input class="form-input" type="text" placeholder="Code postal *"></div>
+            <div class="form-field"><input class="form-input" type="text" placeholder="Ville *"></div>
+            <div class="form-field form-field--full">
+              <select class="form-input">
+                <option>France</option>
+                <option>Belgique</option>
+                <option>Suisse</option>
+                <option>Luxembourg</option>
+                <option>Canada</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="order-summary">
+            <div class="order-summary__row">
+              <span class="order-summary__label">Total TTC</span>
+              <span class="order-summary__value">1 497 €</span>
+            </div>
+          </div>
+
+          <button class="btn-primary" type="submit">Finaliser la commande</button>
+          <p class="legal-mini">Paiement unique. Droit de rétractation de 14 jours. Accès immédiat aux modules disponibles.</p>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="faq-section">
+  <div class="container">
+    <div class="faq-section__label">FAQ</div>
+    <h2 class="faq-section__title">Nous répondons à vos questions<br>les plus fréquentes</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-question"><span>J'ai peur que la formation soit trop théorique.</span><svg class="faq-question__icon" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="faq-answer"><div class="faq-answer__inner">La méthode est construite pour que vous passiez à l'action. Chaque module a un objectif pédagogique mesurable, des compétences actionnables, un plan d'exécution et un quiz de validation. Mathieu Verstraten a personnellement suivi plusieurs formations immobilières concurrentes. Son constat : la majorité des apprenants n'agissent pas après leur formation. Le programme est construit autour de cette critique. Chaque arc (Stratégie, Acquisition, Exécution, Exploitation) suit l'ordre chronologique réel d'une opération immobilière, du raisonnement initial à la gestion locative.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question"><span>Je débute en immobilier, je n'ai jamais investi. Cette formation est-elle adaptée ?</span><svg class="faq-question__icon" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="faq-answer"><div class="faq-answer__inner">Oui. Le programme cible précisément un public débutant à intermédiaire qui souhaite réaliser son premier investissement locatif, ou améliorer une première expérience insatisfaisante. L'arc Stratégie pose les fondations : état d'esprit d'investisseur, règles du jeu de l'immobilier, fiscalité, structure d'investissement. Vous démarrez sans prérequis et progressez par étapes.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question"><span>J'ai déjà fait un ou deux investissements. La formation a-t-elle un intérêt pour moi ?</span><svg class="faq-question__icon" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="faq-answer"><div class="faq-answer__inner">Si vous êtes investisseur expérimenté avec un parc important et déjà professionnalisé, le programme n'est probablement pas adapté à votre niveau. Si vous avez réalisé un ou deux investissements et que vous voulez systématiser votre approche (analyse de marché, fiscalité, financement, gestion locative, optimisation du parc), le programme couvre ces sujets en profondeur. Plusieurs modules abordent spécifiquement les angles morts des premiers investissements.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question"><span>J'ai peur de faire un mauvais investissement.</span><svg class="faq-question__icon" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="faq-answer"><div class="faq-answer__inner">C'est une crainte légitime. Investir en immobilier comporte un risque de perte en capital, et personne ne peut vous garantir le contraire. Le programme ne supprime pas ce risque : il vous donne un cadre de décision documenté. Critères d'analyse de marché, calcul de rentabilité, points de vigilance lors de la visite, structure de négociation, fiscalité adaptée à votre situation. L'objectif est que vos décisions soient construites sur une méthode plutôt que sur l'intuition ou la pression du moment.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question"><span>Je n'ai pas un gros capital de départ. Cela peut-il fonctionner pour moi ?</span><svg class="faq-question__icon" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="faq-answer"><div class="faq-answer__inner">L'arc Exécution traite spécifiquement du financement : apport, levier bancaire, négociation du crédit, structure du dossier. Le ticket d'entrée dépend de votre marché cible, de votre stratégie (location nue, meublée, courte durée) et de votre profil bancaire. Le module sur la stratégie d'attaque vous aide à calibrer votre projet à votre situation réelle, plutôt que de viser un objectif déconnecté de vos moyens. Le programme ne promet pas qu'on peut investir sans capital, c'est l'inverse de notre positionnement.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question"><span>J'ai 60 ans. Est-ce encore pertinent de me lancer ?</span><svg class="faq-question__icon" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="faq-answer"><div class="faq-answer__inner">L'horizon de placement est plus court qu'à 30 ans, mais l'immobilier locatif reste un actif générateur de revenus complémentaires potentiels, transmissible, et avec des leviers fiscaux spécifiques à votre tranche d'âge. Le programme couvre l'arbitrage entre détention en direct, démembrement et SCI, trois approches souvent pertinentes en seconde partie de vie active, notamment dans une logique de préparation de la retraite ou de transmission patrimoniale.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question"><span>Je n'ai pas beaucoup de temps pour suivre la formation.</span><svg class="faq-question__icon" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="faq-answer"><div class="faq-answer__inner">Les modules sont en vidéo préenregistrée, accessibles à votre rythme, avec supports téléchargeables et quiz par module. Vous pouvez suivre le programme en quelques heures par semaine ou en intensif. La structure chronologique permet aussi de revenir précisément sur un arc quand vous en avez besoin, par exemple au moment de la première visite, ou de la mise en location de votre bien.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question"><span>C'est une bêta. Tout le contenu est-il déjà disponible au moment de l'inscription ?</span><svg class="faq-question__icon" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="faq-answer"><div class="faq-answer__inner">Non, et c'est précisément le principe d'une bêta. Au lancement, plusieurs modules sont déjà accessibles. Les autres sont publiés progressivement, à raison d'environ un module toutes les deux semaines. Vous suivez la production en temps réel et participez à l'amélioration du contenu via les sondages de fin de module. C'est la contrepartie du tarif réduit : vous êtes co-constructeur du programme, pas simplement consommateur.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question"><span>Combien de temps ai-je accès à la formation après inscription ?</span><svg class="faq-question__icon" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="faq-answer"><div class="faq-answer__inner">Vous bénéficiez d'un accès intégral pour 12 mois minimum, incluant l'ensemble des mises à jour publiées jusqu'au lancement public de septembre 2026 et au-delà. Les bêta-testeurs bénéficient en complément de 1 live mensuel avec Mathieu Verstraten pendant la phase bêta, pour échanger sur leurs questions concrètes.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question"><span>En quoi cette formation est différente des autres formations immobilières ?</span><svg class="faq-question__icon" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="faq-answer"><div class="faq-answer__inner">Trois points différencient le programme. Le positionnement d'abord : pas de discours «&nbsp;pas besoin de capital, c'est facile&nbsp;», la méthode est anti-bullshit et vient d'une expérience de terrain, calibrée pour des investisseurs sérieux. La structure ensuite : un parcours chronologique qui suit l'ordre réel d'une opération, là où la plupart des formations livrent des modules thématiques isolés. L'environnement enfin : la formation s'inscrit dans l'écosystème S'investir et la communauté LBD, dont la confiance s'est construite précisément sur cette exigence de transparence.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question"><span>Comment fonctionne la garantie satisfait ou remboursé ?</span><svg class="faq-question__icon" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="faq-answer"><div class="faq-answer__inner">Vous disposez du droit de rétractation légal de 14 jours après votre inscription, conformément à la réglementation française applicable à la vente à distance. Pendant ce délai, vous pouvez demander un remboursement intégral sans avoir à vous justifier. Au-delà, l'accès reste actif jusqu'au terme de votre abonnement.</div></div>
+      </div>
+    </div>
+    <div class="faq-cta">
+      <div class="faq-cta-wrap">
+        <button class="btn-primary" onclick="document.querySelector('.form-section').scrollIntoView({behavior:'smooth'})">Rejoindre la bêta : 1 497 €</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <p class="footer__disclaimer">Les contenus proposés sur ce site ont une vocation éducative. Ils ne remplacent pas un conseil en investissement personnalisé, qui dépend de la situation, des objectifs et du profil de chaque investisseur. Investir en immobilier comporte des risques, y compris un risque de perte en capital. Les performances passées ne préjugent pas des performances futures.</p>
+    <p class="footer__copyright">Copyright &copy; 2026 | <a href="https://sinvestir.fr/mentions_legales/" target="_blank" rel="noopener">Mentions légales</a> | <a href="https://sinvestir.fr/conditions-generales-de-vente-et-d-utilisation/" target="_blank" rel="noopener">CGVU</a> | <a href="https://sinvestir.fr/politique-de-confidentialite/" target="_blank" rel="noopener">Politique de confidentialité</a></p>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.addEventListener('click', () => btn.closest('.faq-item').classList.toggle('is-open'));
+  });
+</script>
+</body>
+</html>
